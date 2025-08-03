@@ -1,0 +1,26 @@
+{
+    "name": "daily-health-tips-server",
+    "version": "1.0.0",
+    "description": "Server-side notification sender for Daily Health Tips Flutter app",
+    "main": "send_notifications.js",
+    "scripts": {
+        "start": "node send_notifications.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "firebase",
+        "fcm",
+        "notifications",
+        "flutter",
+        "health-tips"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "firebase-admin": "^12.0.0"
+    },
+    "devDependencies": {},
+    "engines": {
+        "node": ">=16.0.0"
+    }
+}

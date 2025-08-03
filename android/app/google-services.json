@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "867351855665",
+    "project_id": "daily-health-tips-2ec27",
+    "storage_bucket": "daily-health-tips-2ec27.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867351855665:android:c1da3fd9e9b7c8460e8b10",
+        "android_client_info": {
+          "package_name": "com.example.daily_health_tips"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWrE0ctv2D5NDTy7nabuEwyeYQC0h-rAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
