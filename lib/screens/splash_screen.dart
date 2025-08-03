@@ -1,7 +1,7 @@
-import 'package:daily_health_tips/screens/home_screen.dart';
-import 'package:daily_health_tips/screens/profile_setup_screen.dart';
-import 'package:daily_health_tips/services/user_profile_service.dart';
 import 'package:flutter/material.dart';
+import '../services/user_profile_service.dart';
+import 'profile_setup_screen.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,7 +9,6 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
@@ -19,19 +18,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkUserProfile() async {
-    // Add a small delay for splash screen effect
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
       final hasProfile = await UserProfileService().hasUserProfile();
 
       if (hasProfile) {
-        // User has profile, go to home screen
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       } else {
-        // No profile, go to setup screen
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const ProfileSetupScreen()),
         );

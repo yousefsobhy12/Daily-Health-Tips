@@ -6,9 +6,7 @@ class HealthTipsService {
   factory HealthTipsService() => _instance;
   HealthTipsService._internal();
 
-  // Sample health tips data - in a real app, this would come from a database or API
   final List<HealthTip> _healthTips = [
-    // Weight loss tips
     HealthTip(
       id: '1',
       title: 'Stay Hydrated for Weight Loss',
@@ -27,8 +25,6 @@ class HealthTipsService {
       targetAgeGroups: ['18_25', '26_35', '36_50'],
       category: 'exercise',
     ),
-
-    // Fitness tips
     HealthTip(
       id: '3',
       title: 'Progressive Overload',
@@ -47,8 +43,6 @@ class HealthTipsService {
       targetAgeGroups: ['18_25', '26_35', '36_50'],
       category: 'nutrition',
     ),
-
-    // General health tips
     HealthTip(
       id: '5',
       title: 'Quality Sleep Matters',
@@ -67,8 +61,6 @@ class HealthTipsService {
       targetAgeGroups: ['18_25', '26_35', '36_50', '50_plus'],
       category: 'nutrition',
     ),
-
-    // Age-specific tips
     HealthTip(
       id: '7',
       title: 'Bone Health for Young Adults',
@@ -87,8 +79,6 @@ class HealthTipsService {
       targetAgeGroups: ['36_50', '50_plus'],
       category: 'exercise',
     ),
-
-    // Mental health tips
     HealthTip(
       id: '9',
       title: 'Stress Management',
@@ -109,17 +99,14 @@ class HealthTipsService {
     ),
   ];
 
-  // Get personalized health tip for a user
   HealthTip getPersonalizedTip(UserProfile user) {
     String ageGroup = _getAgeGroup(user.age);
 
-    // Filter tips based on user's goal and age group
     List<HealthTip> suitableTips = _healthTips.where((tip) {
       return tip.targetGoals.contains(user.goal) &&
           tip.targetAgeGroups.contains(ageGroup);
     }).toList();
 
-    // If no specific tips found, get general health tips
     if (suitableTips.isEmpty) {
       suitableTips = _healthTips.where((tip) {
         return tip.targetGoals.contains('stay healthy') &&
@@ -127,24 +114,20 @@ class HealthTipsService {
       }).toList();
     }
 
-    // If still no tips, get any tip for the age group
     if (suitableTips.isEmpty) {
       suitableTips = _healthTips.where((tip) {
         return tip.targetAgeGroups.contains(ageGroup);
       }).toList();
     }
 
-    // If no age-specific tips, return any tip
     if (suitableTips.isEmpty) {
       suitableTips = _healthTips;
     }
 
-    // Return a random tip from suitable tips
     suitableTips.shuffle();
     return suitableTips.first;
   }
 
-  // Get multiple personalized tips
   List<HealthTip> getPersonalizedTips(UserProfile user, int count) {
     String ageGroup = _getAgeGroup(user.age);
 
@@ -174,7 +157,6 @@ class HealthTipsService {
     return suitableTips.take(count).toList();
   }
 
-  // Get tips by category
   List<HealthTip> getTipsByCategory(String category, UserProfile user) {
     String ageGroup = _getAgeGroup(user.age);
 
@@ -185,7 +167,6 @@ class HealthTipsService {
     }).toList();
   }
 
-  // Get age group based on age
   String _getAgeGroup(int age) {
     if (age < 18) return 'under_18';
     if (age >= 18 && age <= 25) return '18_25';
@@ -194,7 +175,6 @@ class HealthTipsService {
     return '50_plus';
   }
 
-  // Get all available goals
   List<String> getAvailableGoals() {
     Set<String> goals = {};
     for (var tip in _healthTips) {
@@ -203,7 +183,6 @@ class HealthTipsService {
     return goals.toList();
   }
 
-  // Get all available categories
   List<String> getAvailableCategories() {
     Set<String> categories = {};
     for (var tip in _healthTips) {
@@ -212,7 +191,6 @@ class HealthTipsService {
     return categories.toList();
   }
 
-  // Get a random health tip
   HealthTip getRandomTip() {
     final random = Random();
     return _healthTips[random.nextInt(_healthTips.length)];

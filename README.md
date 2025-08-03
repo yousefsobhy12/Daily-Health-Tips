@@ -1,245 +1,301 @@
-# Daily Health Tips - Flutter App
+# Daily Health Tips App
 
-A Flutter application that provides personalized daily health tips using Firebase Cloud Messaging (FCM) for push notifications.
+A Flutter application that sends personalized daily health tips using Firebase Cloud Messaging (FCM). The app provides users with customized health advice based on their age, fitness goals, and preferences.
 
-## Features
+## 🌟 Features
 
-🔔 **Personalized Daily Health Tips**
+### Core Features
 
-- Receive health tips tailored to your age and fitness goals
-- Tips are categorized by nutrition, exercise, mental health, and sleep
-- Different tips for different age groups and goals
+- **Personalized Health Tips**: Get health advice tailored to your age and fitness goals
+- **Firebase Cloud Messaging**: Push notifications for daily health tips
+- **Cross-Platform**: Works on both Android and iOS
+- **User Profiles**: Customizable user profiles with age, goals, and notification preferences
+- **Local Notifications**: In-app notifications when the app is in foreground
+- **Notification Scheduling**: Set daily notification times (e.g., 9 AM)
 
-📱 **Cross-Platform Support**
+### User Experience
 
-- Works on both Android and iOS
-- Beautiful Material Design 3 UI
-- Responsive design
+- **Clean Material Design 3 UI**: Modern and intuitive interface
+- **Custom Widgets**: Modular and reusable UI components
+- **Profile Setup**: Easy onboarding with guided profile creation
+- **Settings Management**: Comprehensive settings screen for user preferences
+- **Real-time Updates**: Dynamic content updates and refresh functionality
 
-⚙️ **Customizable Notifications**
+## 🏗️ Architecture
 
-- Set your preferred notification time
-- Enable/disable notifications
-- Personalized notification scheduling
-
-🎯 **Goal-Based Recommendations**
-
-- Lose weight tips
-- Get fit recommendations
-- Stay healthy advice
-- Age-appropriate content
-
-## Prerequisites
-
-Before running this app, you need:
-
-1. **Flutter SDK** (version 3.8.1 or higher)
-2. **Firebase Project** with Cloud Messaging enabled
-3. **Android Studio** or **VS Code** with Flutter extensions
-4. **Physical device** or **emulator** for testing
-
-## Setup Instructions
-
-### 1. Firebase Setup
-
-1. **Create a Firebase Project:**
-
-   - Go to [Firebase Console](https://console.firebase.google.com/)
-   - Click "Add project"
-   - Follow the setup wizard
-
-2. **Enable Cloud Messaging:**
-
-   - In your Firebase project, go to "Messaging" in the left sidebar
-   - Click "Get started"
-   - Follow the setup instructions
-
-3. **Add Android App:**
-
-   - In Firebase Console, click the Android icon
-   - Use package name: `com.example.daily_health_tips`
-   - Download `google-services.json` and place it in `android/app/`
-
-4. **Add iOS App (if needed):**
-   - In Firebase Console, click the iOS icon
-   - Use bundle ID: `com.example.dailyHealthTips`
-   - Download `GoogleService-Info.plist` and add it to your iOS project
-
-### 2. Update Firebase Configuration
-
-1. **Update `lib/firebase_options.dart`:**
-
-   - Replace all placeholder values with your actual Firebase project configuration
-   - You can get these values from your Firebase Console
-
-2. **Android Configuration:**
-
-   - Ensure `google-services.json` is in `android/app/`
-   - The file is already referenced in `android/app/build.gradle.kts`
-
-3. **iOS Configuration (if needed):**
-   - Add `GoogleService-Info.plist` to your iOS project
-   - Update the bundle identifier in Xcode
-
-### 3. Install Dependencies
-
-Run the following command to install all required dependencies:
-
-```bash
-flutter pub get
-```
-
-### 4. Run the App
-
-```bash
-flutter run
-```
-
-## Project Structure
+### Project Structure
 
 ```
 lib/
-├── main.dart                 # App entry point
-├── firebase_options.dart     # Firebase configuration
 ├── models/
-│   └── user_profile.dart     # User profile and health tip models
+│   └── user_profile.dart          # User profile and health tip data models
 ├── services/
-│   ├── fcm_service.dart      # Firebase Cloud Messaging service
-│   ├── health_tips_service.dart  # Health tips management
-│   └── user_profile_service.dart # User profile management
-└── screens/
-    ├── profile_setup_screen.dart  # Initial profile setup
-    ├── home_screen.dart      # Main app screen
-    └── settings_screen.dart  # Settings and preferences
+│   ├── fcm_service.dart           # Firebase Cloud Messaging service
+│   ├── health_tips_service.dart   # Health tips management service
+│   └── user_profile_service.dart  # User profile storage service
+├── screens/
+│   ├── splash_screen.dart         # App launch screen
+│   ├── profile_setup_screen.dart  # User profile creation
+│   ├── home_screen.dart           # Main app screen
+│   └── settings_screen.dart       # User settings and preferences
+├── widgets/
+│   ├── welcome_card.dart          # User welcome display
+│   ├── health_tip_card.dart       # Health tip display component
+│   ├── quick_action_card.dart     # Navigation action cards
+│   ├── notification_buttons.dart  # Notification test buttons
+│   ├── notification_status.dart   # Notification settings status
+│   └── profile_item.dart          # Profile information display
+└── main.dart                      # App entry point
 ```
 
-## Key Components
+### Custom Widgets
 
-### FCM Service (`lib/services/fcm_service.dart`)
+The app uses a modular widget architecture with reusable components:
 
-- Handles Firebase Cloud Messaging setup
-- Manages notification permissions
-- Handles foreground and background messages
-- Topic subscription for personalized notifications
+- **WelcomeCard**: Displays personalized user greeting and fitness goal
+- **HealthTipCard**: Shows health tips with category icons and refresh functionality
+- **QuickActionCard**: Reusable action cards for navigation
+- **NotificationButtons**: Test buttons for random and personalized notifications
+- **NotificationStatus**: Displays current notification settings
+- **ProfileItem**: Individual profile information display items
 
-### Health Tips Service (`lib/services/health_tips_service.dart`)
+## 🚀 Getting Started
 
-- Contains sample health tips data
-- Filters tips based on user age and goals
-- Provides personalized recommendations
+### Prerequisites
 
-### User Profile Service (`lib/services/user_profile_service.dart`)
+- Flutter SDK (latest stable version)
+- Android Studio / VS Code
+- Firebase project setup
+- Android NDK 27.0.12077973 or higher
 
-- Manages user profile data
-- Handles local storage with SharedPreferences
-- Manages notification preferences
+### Installation
 
-## Sending Personalized Notifications
+1. **Clone the repository**
 
-To send personalized notifications to users, you can use Firebase Cloud Messaging with topics:
+   ```bash
+   git clone <repository-url>
+   cd daily_health_tips
+   ```
 
-### Topic-Based Notifications
+2. **Install dependencies**
 
-Users are automatically subscribed to topics based on their profile:
+   ```bash
+   flutter pub get
+   ```
 
-- `user_{userId}` - User-specific notifications
-- `goal_{goalName}` - Goal-based notifications (e.g., `goal_lose_weight`)
-- `age_{ageGroup}` - Age group notifications (e.g., `age_26_35`)
+3. **Firebase Setup**
 
-### Example FCM Message
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Add Android and iOS apps to your Firebase project
+   - Download `google-services.json` and place it in `android/app/`
+   - Update `lib/firebase_options.dart` with your Firebase configuration
 
-```json
-{
-  "to": "/topics/goal_lose_weight",
-  "notification": {
-    "title": "Daily Health Tip",
-    "body": "Stay hydrated! Drink 8-10 glasses of water daily to boost metabolism."
-  },
-  "data": {
-    "tipId": "1",
-    "category": "nutrition"
-  }
+4. **Run the app**
+   ```bash
+   flutter run
+   ```
+
+## 📱 App Flow
+
+### First Launch
+
+1. **Splash Screen**: App initialization and user profile check
+2. **Profile Setup**: New users create their profile with:
+   - Name
+   - Age (18-100 years)
+   - Health Goal (lose weight, get fit, stay healthy, etc.)
+   - Notification preferences
+   - Daily notification time
+
+### Main App Experience
+
+1. **Home Screen**:
+
+   - Personalized welcome message
+   - Daily health tip with category indicators
+   - Quick action buttons for settings and more tips
+   - Notification test buttons
+   - Current notification status
+
+2. **Settings Screen**:
+   - View and edit profile information
+   - Manage notification preferences
+   - Set daily notification time
+   - Reset profile option
+
+## 🔧 Configuration
+
+### Firebase Configuration
+
+The app requires Firebase for push notifications:
+
+```dart
+// lib/firebase_options.dart
+static const FirebaseOptions android = FirebaseOptions(
+  apiKey: 'your-api-key',
+  appId: 'your-app-id',
+  messagingSenderId: 'your-sender-id',
+  projectId: 'your-project-id',
+  storageBucket: 'your-storage-bucket',
+);
+```
+
+### Android Configuration
+
+The app includes specific Android configurations for compatibility:
+
+```kotlin
+// android/app/build.gradle.kts
+android {
+    ndkVersion = "27.0.12077973"
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
 ```
 
-## Customization
+## 📦 Dependencies
 
-### Adding New Health Tips
+### Core Dependencies
 
-1. Edit `lib/services/health_tips_service.dart`
-2. Add new `HealthTip` objects to the `_healthTips` list
-3. Specify target goals and age groups
-
-### Modifying Notification Schedule
-
-1. Users can set their preferred time in the app
-2. For server-side scheduling, implement a Cloud Function
-3. Use the user's `notificationTime` preference
-
-### Styling
-
-The app uses Material Design 3 with a green theme. You can customize colors in `lib/main.dart`:
-
-```dart
-theme: ThemeData(
-  primarySwatch: Colors.green,
-  useMaterial3: true,
-  // ... other theme settings
-),
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3
+  cloud_firestore: ^5.4.0
+  shared_preferences: ^2.2.2
+  http: ^1.2.0
+  intl: ^0.19.0
+  permission_handler: ^11.3.1
+  flutter_local_notifications: ^17.2.2
 ```
 
-## Troubleshooting
+## 🔔 Notification System
 
-### Common Issues
+### Features
 
-1. **Firebase not initialized:**
+- **Personalized Topics**: Users are subscribed to topics based on their profile
+- **Age Groups**: Automatic categorization (under_18, 18_25, 26_35, 36_50, 50_plus)
+- **Goal-based**: Topic subscription based on fitness goals
+- **Individual Users**: User-specific topic for targeted notifications
 
-   - Ensure `firebase_options.dart` has correct configuration
-   - Check that `google-services.json` is in the right location
+### Testing
 
-2. **Notifications not working:**
+The app includes built-in notification testing:
 
-   - Verify notification permissions are granted
-   - Check FCM token is generated correctly
-   - Ensure device is connected to internet
+- **Random Tip**: Send a random health tip notification
+- **Personalized Tip**: Send a tip tailored to the current user's profile
 
-3. **Build errors:**
-   - Run `flutter clean` and `flutter pub get`
-   - Check all dependencies are compatible
+## 🎨 UI/UX Features
 
-### Debug Mode
+### Material Design 3
 
-Enable debug logging by checking the console output for:
+- Modern Material Design 3 theming
+- Consistent color scheme with green primary color
+- Responsive design for different screen sizes
+- Smooth animations and transitions
 
-- FCM token generation
-- Topic subscription status
-- Notification delivery
+### Accessibility
 
-## Future Enhancements
+- Proper contrast ratios
+- Screen reader support
+- Touch target sizes following accessibility guidelines
 
-- [ ] Server-side notification scheduling
-- [ ] More health tips categories
-- [ ] User progress tracking
-- [ ] Social sharing features
-- [ ] Offline tip storage
-- [ ] Analytics integration
+## 🛠️ Development
 
-## Contributing
+### Code Organization
+
+- **Service Layer**: Business logic and external service integration
+- **Model Layer**: Data structures and serialization
+- **Widget Layer**: Reusable UI components
+- **Screen Layer**: Page-level UI and navigation
+
+### Best Practices
+
+- Singleton pattern for services
+- Proper error handling with try-catch blocks
+- Graceful degradation when Firebase is unavailable
+- Clean separation of concerns
+
+## 📊 Health Tips System
+
+### Categories
+
+- **Nutrition**: Diet and eating advice
+- **Exercise**: Physical activity recommendations
+- **Mental Health**: Psychological well-being tips
+- **Sleep**: Sleep hygiene and rest advice
+
+### Personalization Logic
+
+1. **Primary Match**: Tips matching both age group and fitness goal
+2. **Secondary Match**: Tips matching age group with "stay healthy" goal
+3. **Age Match**: Tips matching only the age group
+4. **Fallback**: Random tips if no matches found
+
+## 🔒 Privacy & Permissions
+
+### Required Permissions
+
+- **Notification Permission**: For push notifications
+- **Storage Permission**: For local data storage (Android)
+
+### Data Storage
+
+- **Local Storage**: User profiles stored locally using SharedPreferences
+- **No Cloud Storage**: User data is not uploaded to external servers
+- **Privacy First**: Minimal data collection and local processing
+
+## 🚀 Deployment
+
+### Android
+
+```bash
+flutter build apk --release
+```
+
+### iOS
+
+```bash
+flutter build ios --release
+```
+
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
+4. Add tests if applicable
 5. Submit a pull request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## 🆘 Support
 
 For support and questions:
 
-- Create an issue in this repository
-- Check Firebase documentation for FCM setup
-- Refer to Flutter documentation for app development
+- Create an issue in the repository
+- Check the Firebase documentation for setup issues
+- Review Flutter documentation for development questions
+
+## 🔄 Version History
+
+### Current Version
+
+- Custom widgets architecture
+- Firebase Cloud Messaging integration
+- Personalized health tips system
+- Material Design 3 UI
+- Cross-platform support
+
+---
+
+**Built with ❤️ using Flutter and Firebase**
